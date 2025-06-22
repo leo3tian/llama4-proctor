@@ -11,7 +11,7 @@ interface ViewToggleProps {
 export default function ViewToggle({ currentView, onViewChange }: ViewToggleProps) {
   return (
     <div className="simple-card p-6">
-      <h2 className="text-lg font-bold text-text-primary mb-4">View Options</h2>
+      <h2 className="text-xl font-formal font-bold text-text-primary mb-4">View Options</h2>
       
       <div className="flex bg-gray-100 rounded-lg p-1">
         <button

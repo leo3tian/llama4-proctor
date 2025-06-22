@@ -1,4 +1,4 @@
-import { Student } from './types';
+import { Student, StudentStatus } from './types';
 
 // Mock student database
 export const mockStudentDb: Record<string, Student> = {
@@ -6,7 +6,7 @@ export const mockStudentDb: Record<string, Student> = {
     id: "stu001",
     name: "Alex Johnson",
     screenshot: "https://picsum.photos/300/200?random=1",
-    isMatching: true,
+    status: 'ON_TASK',
     currentActivity: "Watching YouTube video about Greek history",
     lastUpdated: new Date()
   },
@@ -14,7 +14,7 @@ export const mockStudentDb: Record<string, Student> = {
     id: "stu002",
     name: "Sarah Chen",
     screenshot: "https://picsum.photos/300/200?random=2",
-    isMatching: false,
+    status: 'NEEDS_HELP',
     currentActivity: "Scrolling through TikTok",
     lastUpdated: new Date()
   },
@@ -22,7 +22,7 @@ export const mockStudentDb: Record<string, Student> = {
     id: "stu003",
     name: "Michael Rodriguez",
     screenshot: "https://picsum.photos/300/200?random=3",
-    isMatching: true,
+    status: 'ON_TASK',
     currentActivity: "Reading Greek history article",
     lastUpdated: new Date()
   },
@@ -30,7 +30,7 @@ export const mockStudentDb: Record<string, Student> = {
     id: "stu004",
     name: "Emily Davis",
     screenshot: "https://picsum.photos/300/200?random=4",
-    isMatching: false,
+    status: 'NEEDS_HELP',
     currentActivity: "Playing online games",
     lastUpdated: new Date()
   },
@@ -38,16 +38,16 @@ export const mockStudentDb: Record<string, Student> = {
     id: "stu005",
     name: "David Kim",
     screenshot: "https://picsum.photos/300/200?random=5",
-    isMatching: true,
-    currentActivity: "Taking notes on Greek history",
+    status: 'MAYBE_OFF_TASK',
+    currentActivity: "Browsing Wikipedia",
     lastUpdated: new Date()
   },
   "stu006": {
     id: "stu006",
     name: "Lisa Wang",
     screenshot: "https://picsum.photos/300/200?random=6",
-    isMatching: false,
-    currentActivity: "Checking social media",
+    status: 'MAYBE_OFF_TASK',
+    currentActivity: "Searching Google",
     lastUpdated: new Date()
   }
 };
@@ -57,7 +57,12 @@ export const fetchStudent = async (studentId: string): Promise<Student | null> =
   return new Promise((resolve) => {
     setTimeout(() => {
       const student = mockStudentDb[studentId];
-      resolve(student || null);
+      if (student) {
+        // Return a fresh copy to avoid mutation issues
+        resolve({ ...student, lastUpdated: new Date() });
+      } else {
+        resolve(null);
+      }
     }, 500);
   });
 };
@@ -72,7 +77,10 @@ export const generateRandomActivity = (): string => {
     "Playing online games",
     "Checking social media",
     "Browsing shopping websites",
-    "Watching Netflix"
+    "Watching Netflix",
+    "Browsing Wikipedia",
+    "Searching on Google",
+    "Watching a YouTube video",
   ];
   return activities[Math.floor(Math.random() * activities.length)];
 };
@@ -80,12 +88,20 @@ export const generateRandomActivity = (): string => {
 // Update student activity randomly for simulation
 export const updateStudentActivity = (student: Student): Student => {
   const newActivity = generateRandomActivity();
-  const isMatching = newActivity.includes("Greek history") || newActivity.includes("notes");
+  let status: StudentStatus;
+
+  if (newActivity.toLowerCase().includes("greek history")) {
+    status = 'ON_TASK';
+  } else if (newActivity.toLowerCase().includes("wikipedia") || newActivity.toLowerCase().includes("google") || newActivity === "Watching a YouTube video") {
+    status = 'MAYBE_OFF_TASK';
+  } else {
+    status = 'NEEDS_HELP';
+  }
   
   return {
     ...student,
     screenshot: `https://picsum.photos/300/200?random=${Math.floor(Math.random() * 1000)}`,
-    isMatching,
+    status,
     currentActivity: newActivity,
     lastUpdated: new Date()
   };

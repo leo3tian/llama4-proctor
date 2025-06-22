@@ -17,6 +17,9 @@
   --accent-orange: #ff9e44;
   --accent-green: #28a745;
   --accent-red: #dc3545;
+
+  --font-lora: 'Lora', serif;
+  --font-inter: 'Inter', sans-serif;
 }
 
 @theme inline {
@@ -37,14 +40,15 @@
   --color-accent-green: var(--accent-green);
   --color-accent-red: var(--accent-red);
 
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+  --font-formal: var(--font-lora);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.6;
 }
 
@@ -142,4 +146,8 @@ body {
 }
 .btn-danger:hover {
   background-color: #c82333;
+}
+
+.font-formal {
+  font-family: var(--font-lora);
 }

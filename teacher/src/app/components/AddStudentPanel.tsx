@@ -35,7 +35,7 @@ export default function AddStudentPanel({ onAddStudent, onError }: AddStudentPan
 
   return (
     <div className="simple-card p-6">
-      <h2 className="text-lg font-bold text-text-primary mb-4">Add Student</h2>
+      <h2 className="text-xl font-formal font-bold text-text-primary mb-4">Add Student</h2>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { TbReload } from "react-icons/tb";
-import InstructionPanel from './components/InstructionPanel';
+import Link from 'next/link';
+import ClassInfoPanel from './components/ClassInfoPanel';
 import AddStudentPanel from './components/AddStudentPanel';
 import StudentGrid from './components/StudentGrid';
 import HeatmapView from './components/HeatmapView';
@@ -10,8 +11,10 @@ import FlagSummaryPanel from './components/FlagSummaryPanel';
 import ViewToggle from './components/ViewToggle';
 import Toast from './components/Toast';
 import StudentModal from './components/StudentModal';
-import { Student, ViewMode } from './types';
+import StudentFilter from './components/StudentFilter';
+import { Student, ViewMode, StudentStatus } from './types';
 import { updateStudentActivity } from './mockData';
+import { getStudents } from './services/api';
 
 export default function Dashboard() {
   const [students, setStudents] = React.useState<Student[]>([]);
@@ -21,35 +24,37 @@ export default function Dashboard() {
   const [selectedStudent, setSelectedStudent] = React.useState<Student | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [lastUpdated, setLastUpdated] = React.useState<Date | null>(null);
+  const [filterStatus, setFilterStatus] = React.useState<StudentStatus | 'ALL'>('ALL');
 
-  const refreshData = React.useCallback(() => {
-    setStudents(prevStudents => 
-      prevStudents.map(student => updateStudentActivity(student))
-    );
-    setLastUpdated(new Date());
+  const refreshData = React.useCallback(async () => {
+    try {
+      const dbStudents = await getStudents('1');
+      
+      setStudents(prevStudents => {
+        const mockStudents = prevStudents.filter(s => s.isMock);
+        const updatedMockStudents = mockStudents.map(updateStudentActivity);
+        return [...dbStudents, ...updatedMockStudents];
+      });
+
+      setLastUpdated(new Date());
+    } catch (error) {
+      console.error('Failed to refresh student data:', error);
+      setToast({ message: 'Failed to refresh student data from the database.', type: 'error' });
+    }
   }, []);
 
-  // Simulate real-time updates every 10 seconds
   React.useEffect(() => {
-    if (students.length === 0) {
-      if (lastUpdated) setLastUpdated(null);
-      return;
-    }
-
-    if (!lastUpdated) {
-      setLastUpdated(new Date());
-    }
+    refreshData();
     const interval = setInterval(refreshData, 10000);
-
     return () => clearInterval(interval);
-  }, [students.length, lastUpdated, refreshData]);
+  }, [refreshData]);
 
   const handleAddStudent = (student: Student) => {
     if (students.find(s => s.id === student.id)) {
       setToast({ message: 'Student already added to the dashboard', type: 'error' });
       return;
     }
-    setStudents(prev => [...prev, student]);
+    setStudents(prev => [...prev, { ...student, isMock: true }]);
     setToast({ message: `Added ${student.name} to the dashboard`, type: 'success' });
     setLastUpdated(new Date());
   };
@@ -110,6 +115,18 @@ export default function Dashboard() {
     setToast(null);
   };
 
+  const filteredStudents = students.filter(student => {
+    if (filterStatus === 'ALL') return true;
+    return student.status === filterStatus;
+  });
+
+  const statusCounts = {
+    ALL: students.length,
+    ON_TASK: students.filter(s => s.status === 'ON_TASK').length,
+    MAYBE_OFF_TASK: students.filter(s => s.status === 'MAYBE_OFF_TASK').length,
+    NEEDS_HELP: students.filter(s => s.status === 'NEEDS_HELP').length,
+  };
+
   return (
     <div className="min-h-screen bg-background text-text-primary">
       {/* Header */}
@@ -117,37 +134,30 @@ export default function Dashboard() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="w-8 h-8 bg-accent-blue rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+              <img src="/sussi_icon.PNG" alt="Sussi Logo" className="w-13 h-13" />
+              <div>
+                <h1 className="text-4xl font-formal font-bold text-text-primary leading-none">Sussi</h1>
+                <p className="text-sm text-text-muted">Student Use & Screen Status Interface</p>
               </div>
-              <h1 className="text-xl font-bold text-text-primary">Classroom Monitor</h1>
             </div>
-            <div className="flex items-center space-x-6 text-sm">
-              <div className="text-center">
-                <div className="text-text-secondary">Students</div>
-                <div className="font-bold text-lg text-accent-blue">{students.length}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-text-secondary">On Task</div>
-                <div className="font-bold text-lg text-accent-green">{students.filter(s => s.isMatching).length}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-text-secondary">Needs Help</div>
-                <div className="font-bold text-lg text-accent-red">{students.filter(s => !s.isMatching).length}</div>
-              </div>
+            <div className="flex items-center space-x-8">
+              <Link href="/automations" className="text-text-secondary hover:text-text-primary font-semibold">
+                Automations Hub
+              </Link>
             </div>
           </div>
         </div>
       </header>
 
       <div className="container mx-auto px-6 py-8">
+        <ClassInfoPanel 
+          currentInstruction={currentInstruction}
+          onSetInstruction={handleSetInstruction}
+        />
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Sidebar - Controls */}
           <div className="lg:col-span-1 space-y-6">
-            <InstructionPanel 
-              currentInstruction={currentInstruction}
-              onSetInstruction={handleSetInstruction}
-            />
             <AddStudentPanel 
               onAddStudent={handleAddStudent}
               onError={handleError}
@@ -167,7 +177,7 @@ export default function Dashboard() {
             <div className="simple-card p-6">
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-text-primary">
+                  <h2 className="text-2xl font-formal font-bold text-text-primary">
                     {viewMode === 'grid' ? 'Student Activity View' : 'Classroom Layout'}
                   </h2>
                   <span className="text-sm text-text-secondary">
@@ -188,10 +198,18 @@ export default function Dashboard() {
                   </div>
                 )}
               </div>
+              
+              {students.length > 0 && viewMode === 'grid' && (
+                <StudentFilter 
+                  currentFilter={filterStatus}
+                  onFilterChange={setFilterStatus}
+                  counts={statusCounts}
+                />
+              )}
 
               {viewMode === 'grid' ? (
                 <StudentGrid 
-                  students={students} 
+                  students={filteredStudents} 
                   onStudentClick={handleStudentClick}
                 />
               ) : (

@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Student } from '../types';
+import { Student, StudentStatus } from '../types';
+import { FiMessageSquare, FiAlertTriangle, FiX, FiUserX, FiExternalLink } from 'react-icons/fi';
+import Link from 'next/link';
 
 interface StudentModalProps {
   student: Student | null;
@@ -11,6 +13,12 @@ interface StudentModalProps {
   onFlagStudent?: (studentId: string, reason: string) => void;
   onRemoveStudent?: (studentId: string) => void;
 }
+
+const statusStyles: Record<StudentStatus, { bg: string; text: string; label: string }> = {
+  ON_TASK: { bg: 'bg-accent-green', text: 'text-white', label: 'On Task' },
+  MAYBE_OFF_TASK: { bg: 'bg-accent-orange', text: 'text-white', label: 'Maybe Off-Task' },
+  NEEDS_HELP: { bg: 'bg-accent-red', text: 'text-white', label: 'Needs Help' },
+};
 
 export default function StudentModal({ 
   student, 
@@ -46,6 +54,8 @@ export default function StudentModal({
 
   if (!isOpen || !student) return null;
 
+  const styles = statusStyles[student.status];
+
   const handleSendMessage = () => {
     if (message.trim() && onSendMessage) {
       onSendMessage(student.id, message.trim());
@@ -69,78 +79,94 @@ export default function StudentModal({
 
   return (
     <div 
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
       <div 
-        className="bg-surface rounded-lg shadow-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-surface rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center p-6 border-b border-border">
-          <h2 className="text-xl font-bold text-text-primary">{student.name}</h2>
-          <button onClick={onClose} className="text-text-muted hover:text-text-primary">&times;</button>
+        {/* Header */}
+        <div className="flex justify-between items-center p-4 border-b border-border flex-shrink-0">
+          <h2 className="text-xl font-formal font-bold text-text-primary">{student.name}</h2>
+          <button onClick={onClose} className="text-text-muted hover:text-text-primary text-2xl">&times;</button>
         </div>
         
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        {/* Main Content */}
+        <div className="flex-grow overflow-y-auto">
+          {/* Image Container */}
+          <div className="bg-background relative">
             <img
               src={student.screenshot}
               alt={`${student.name}'s screen`}
-              className="w-full h-48 object-cover rounded-lg border border-border"
+              className="w-full h-auto max-h-96 object-contain"
             />
-            <div className="space-y-4">
+            <div className={`absolute bottom-4 right-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-bold ${styles.bg} ${styles.text} shadow-lg`}>
+              {styles.label}
+            </div>
+          </div>
+
+          {/* Details & Actions */}
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <h4 className="font-semibold text-text-secondary">Status</h4>
-                <div className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-sm font-bold text-white ${
-                  student.isMatching ? 'bg-accent-green' : 'bg-accent-red'
-                }`}>
-                  {student.isMatching ? 'On Task' : 'Needs Help'}
-                </div>
-              </div>
-              <div>
-                <h4 className="font-semibold text-text-secondary">Current Activity</h4>
+                <h4 className="font-semibold text-text-secondary text-sm">Current Activity</h4>
                 <p className="text-text-primary">{student.currentActivity}</p>
               </div>
               <div>
-                <h4 className="font-semibold text-text-secondary">Last Updated</h4>
+                <h4 className="font-semibold text-text-secondary text-sm">Last Updated</h4>
                 <p className="text-text-primary">{student.lastUpdated.toLocaleString()}</p>
               </div>
             </div>
-          </div>
-          
-          <div className="space-y-6">
-            <div>
-              <h3 className="font-semibold text-text-primary mb-2">Send Message</h3>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Type a message..."
-                  className="flex-1 px-4 py-2 bg-background border border-border rounded-lg"
-                />
-                <button onClick={handleSendMessage} className="btn-primary">Send</button>
-              </div>
-            </div>
             
-            <div>
-              <h3 className="font-semibold text-text-primary mb-2">Add Note</h3>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={flagReason}
-                  onChange={(e) => setFlagReason(e.target.value)}
-                  placeholder="Add a note..."
-                  className="flex-1 px-4 py-2 bg-background border border-border rounded-lg"
-                />
-                <button onClick={handleFlagStudent} className="btn-secondary">Add Note</button>
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-semibold text-text-primary mb-2">Send Message</h3>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Type a message..."
+                    className="flex-1 px-4 py-2 bg-background border border-border rounded-lg"
+                  />
+                  <button onClick={handleSendMessage} className="btn-primary">Send</button>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-text-primary mb-2">Add Note</h3>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={flagReason}
+                    onChange={(e) => setFlagReason(e.target.value)}
+                    placeholder="Add a note..."
+                    className="flex-1 px-4 py-2 bg-background border border-border rounded-lg"
+                  />
+                  <button onClick={handleFlagStudent} className="btn-secondary">Add Note</button>
+                </div>
               </div>
             </div>
-
-            <div className="pt-6 border-t border-border">
-              <h3 className="font-semibold text-text-primary mb-2">Danger Zone</h3>
-              <button onClick={handleRemoveStudent} className="btn-danger">
-                Remove from Dashboard
+          </div>
+          <div className="bg-surface p-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+             <div className="flex space-x-2">
+                {!student.isMock && (
+                  <Link href={`/students/${student.id}`} passHref>
+                    <button className="btn-secondary flex items-center gap-2">
+                      <FiExternalLink />
+                      <span>See Detailed View</span>
+                    </button>
+                  </Link>
+                )}
+            </div>
+            <div className="flex space-x-2">
+              <button 
+                className="btn-secondary flex items-center gap-2"
+                onClick={handleRemoveStudent}
+              >
+                <FiUserX />
+                <span>Remove from Dashboard</span>
               </button>
             </div>
           </div>
