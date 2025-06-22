@@ -28,4 +28,23 @@ export const getStudents = async (classroomId: string) => {
     ...student,
     lastUpdated: new Date(student.lastUpdated),
   }));
+};
+
+export const sendMessage = async (message: {
+  studentId: string;
+  classroomId: string;
+  text: string;
+  sender: 'TEACHER' | 'SUSSI_AI' | 'AUTOMATION';
+}) => {
+  const response = await fetch('/api/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(message),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to send message');
+  }
+
+  return response.json();
 }; 

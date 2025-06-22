@@ -50,4 +50,15 @@ export interface TriggeredAutomationEvent {
   ruleMessage: string;
   studentName: string;
   timestamp: Date;
+}
+
+export type MessageSender = 'TEACHER' | 'SUSSI_AI' | 'AUTOMATION';
+
+export interface Message {
+  id?: string;
+  studentId: string;
+  classroomId: string;
+  text: string;
+  sender: MessageSender;
+  timestamp: Date;
 } 

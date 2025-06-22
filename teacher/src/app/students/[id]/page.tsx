@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Student } from '../../types';
 import Link from 'next/link';
+import StudentChat from '../../components/StudentChat';
 
 const StudentDetailSkeleton = () => (
   <div className="container mx-auto px-6 py-8 animate-pulse">
@@ -120,55 +121,57 @@ export default function StudentDetailPage() {
               <img src={student.screenshot} alt={`Screenshot of ${student.name}'s screen`} className="w-full object-cover" />
               <div className="p-6">
                 <h2 className="text-3xl font-bold font-formal mb-1">{student.name}</h2>
-                <p className={`font-semibold ${getStatusColor(student.status)}`}>
+                <p className={`font-semibold mb-4 ${getStatusColor(student.status)}`}>
                   Status: {student.status.replace('_', ' ')}
                 </p>
+                <div className="border-t border-border pt-4">
+                  <h3 className="text-xl font-bold font-formal mb-4">Current Activity Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div>
+                      <label className="font-semibold text-text-secondary block mb-1">Focus Score</label>
+                      <p className="text-lg">{student.focusScore ?? 'N/A'}</p>
+                    </div>
+                    <div>
+                      <label className="font-semibold text-text-secondary block mb-1">Last Updated</label>
+                      <p className="text-lg">{student.lastUpdated.toLocaleString()}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="font-semibold text-text-secondary block mb-1">Summary</label>
+                      <p>{student.currentActivity}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="font-semibold text-text-secondary block mb-1">Detailed Description</label>
+                      <p className="text-text-muted">{student.description ?? 'No description available.'}</p>
+                    </div>
+                    <div>
+                      <label className="font-semibold text-text-secondary block mb-1">Device Status</label>
+                      <p className={`font-semibold ${student.active ? 'text-accent-green' : 'text-accent-red'}`}>
+                        {student.active ? 'Active' : 'Inactive'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="simple-card p-6">
-              <h3 className="text-xl font-bold font-formal mb-4">Current Activity Details</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-                <div>
-                  <label className="font-semibold text-text-secondary block mb-1">Focus Score</label>
-                  <p className="text-lg">{student.focusScore ?? 'N/A'}</p>
-                </div>
-                <div>
-                  <label className="font-semibold text-text-secondary block mb-1">Last Updated</label>
-                  <p className="text-lg">{student.lastUpdated.toLocaleString()}</p>
-                </div>
-                <div className="md:col-span-2">
-                  <label className="font-semibold text-text-secondary block mb-1">Summary</label>
-                  <p>{student.currentActivity}</p>
-                </div>
-                <div className="md:col-span-2">
-                  <label className="font-semibold text-text-secondary block mb-1">Detailed Description</label>
-                  <p className="text-text-muted">{student.description ?? 'No description available.'}</p>
-                </div>
-                 <div>
-                  <label className="font-semibold text-text-secondary block mb-1">Device Status</label>
-                  <p className={`font-semibold ${student.active ? 'text-accent-green' : 'text-accent-red'}`}>
-                    {student.active ? 'Active' : 'Inactive'}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <StudentChat student={student} />
           </div>
           
-          <div className="lg:col-span-1">
-            <div className="simple-card p-6">
-              <h3 className="text-xl font-bold font-formal mb-4">Activity History</h3>
-              {student.history && student.history.length > 0 ? (
-                <ul className="space-y-3">
-                  {student.history.map((item, index) => (
-                    <li key={index} className="text-sm text-text-muted border-l-2 pl-3 border-border">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-sm text-text-muted">No activity history available.</p>
-              )}
+          <div className="lg:col-span-1 space-y-8">
+            <div className="simple-card p-6 flex flex-col max-h-screen">
+              <h3 className="text-xl font-bold font-formal mb-4 flex-shrink-0">Activity History</h3>
+              <div className="overflow-y-auto flex-grow">
+                {student.history && student.history.length > 0 ? (
+                  <ul className="space-y-3">
+                    {student.history.map((item, index) => (
+                      <li key={index} className="text-sm text-text-muted border-l-2 pl-3 border-border">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-text-muted">No activity history available.</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
