@@ -28,6 +28,18 @@ export async function POST(request: Request) {
           },
         },
       },
+      {
+        type: "function",
+        function: {
+          name: "getHistory",
+          description: "Retrieves the activity history for the current student.",
+          parameters: {
+            type: "object",
+            properties: {},
+            required: []
+          }
+        }
+      }
     ];
 
     const systemContent = `You are a helpful assistant for a teacher. You are discussing a student named ${student.name}.
@@ -38,7 +50,9 @@ Here is the student's current data:
 - Detailed Description: ${student.description}
 - Active: ${student.active}
 
-Keep your responses concise and helpful for a teacher monitoring their classroom. You have the ability to send messages to the student.`;
+Keep your responses concise and helpful for a teacher monitoring their classroom. 
+Do not call a tool unless they specifically ask you to do that action.
+You have the ability to send messages to the student, as well as read through their history.`;
 
     const llamaMessages = [
       {
@@ -93,6 +107,18 @@ Keep your responses concise and helpful for a teacher monitoring their classroom
           console.error('Failed to execute sendMessage tool:', e);
           toolResultContent = "Failed to send the message due to an internal error.";
         }
+      } else if (functionName === 'getHistory') {
+        try {
+          if (student && Array.isArray(student.history)) {
+            toolResultContent = JSON.stringify(student.history);
+          } else {
+            toolResultContent = 'No history found for this student.';
+          }
+          functionArgs.text = `Read ${(student.history || []).length} history entries`
+        } catch (e) {
+          console.error('Failed to execute getHistory tool:', e);
+          toolResultContent = "Failed to retrieve student history due to an internal error.";
+        }
       }
 
       const secondWaveMessages = [
@@ -144,4 +170,4 @@ Keep your responses concise and helpful for a teacher monitoring their classroom
     console.error(e);
     return NextResponse.json({ error: 'Unable to process chat' }, { status: 500 });
   }
-} 
+}
