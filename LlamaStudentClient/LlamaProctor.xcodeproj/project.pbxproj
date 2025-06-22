@@ -1,0 +1,594 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		28D3FEF32E07BD5C00B2C396 /* MongoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 28D3FEF22E07BD5C00B2C396 /* MongoSwift */; };
+		28D3FEF52E07BD5C00B2C396 /* MongoSwiftSync in Frameworks */ = {isa = PBXBuildFile; productRef = 28D3FEF42E07BD5C00B2C396 /* MongoSwiftSync */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		28D3FECD2E076D4D00B2C396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28D3FEB32E076D4C00B2C396 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28D3FEBA2E076D4C00B2C396;
+			remoteInfo = LlamaProctor;
+		};
+		28D3FED72E076D4D00B2C396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28D3FEB32E076D4C00B2C396 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28D3FEBA2E076D4C00B2C396;
+			remoteInfo = LlamaProctor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		28D3FEBB2E076D4C00B2C396 /* LlamaProctor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LlamaProctor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28D3FECC2E076D4D00B2C396 /* LlamaProctorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LlamaProctorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		28D3FED62E076D4D00B2C396 /* LlamaProctorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LlamaProctorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		28D3FEBD2E076D4C00B2C396 /* LlamaProctor */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LlamaProctor;
+			sourceTree = "<group>";
+		};
+		28D3FECF2E076D4D00B2C396 /* LlamaProctorTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LlamaProctorTests;
+			sourceTree = "<group>";
+		};
+		28D3FED92E076D4D00B2C396 /* LlamaProctorUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LlamaProctorUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		28D3FEB82E076D4C00B2C396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28D3FEF52E07BD5C00B2C396 /* MongoSwiftSync in Frameworks */,
+				28D3FEF32E07BD5C00B2C396 /* MongoSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28D3FEC92E076D4D00B2C396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28D3FED32E076D4D00B2C396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		28D3FEB22E076D4C00B2C396 = {
+			isa = PBXGroup;
+			children = (
+				28D3FEBD2E076D4C00B2C396 /* LlamaProctor */,
+				28D3FECF2E076D4D00B2C396 /* LlamaProctorTests */,
+				28D3FED92E076D4D00B2C396 /* LlamaProctorUITests */,
+				28D3FEBC2E076D4C00B2C396 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		28D3FEBC2E076D4C00B2C396 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28D3FEBB2E076D4C00B2C396 /* LlamaProctor.app */,
+				28D3FECC2E076D4D00B2C396 /* LlamaProctorTests.xctest */,
+				28D3FED62E076D4D00B2C396 /* LlamaProctorUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		28D3FEBA2E076D4C00B2C396 /* LlamaProctor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28D3FEE02E076D4D00B2C396 /* Build configuration list for PBXNativeTarget "LlamaProctor" */;
+			buildPhases = (
+				28D3FEB72E076D4C00B2C396 /* Sources */,
+				28D3FEB82E076D4C00B2C396 /* Frameworks */,
+				28D3FEB92E076D4C00B2C396 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				28D3FEBD2E076D4C00B2C396 /* LlamaProctor */,
+			);
+			name = LlamaProctor;
+			packageProductDependencies = (
+				28D3FEF22E07BD5C00B2C396 /* MongoSwift */,
+				28D3FEF42E07BD5C00B2C396 /* MongoSwiftSync */,
+			);
+			productName = LlamaProctor;
+			productReference = 28D3FEBB2E076D4C00B2C396 /* LlamaProctor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		28D3FECB2E076D4D00B2C396 /* LlamaProctorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28D3FEE32E076D4D00B2C396 /* Build configuration list for PBXNativeTarget "LlamaProctorTests" */;
+			buildPhases = (
+				28D3FEC82E076D4D00B2C396 /* Sources */,
+				28D3FEC92E076D4D00B2C396 /* Frameworks */,
+				28D3FECA2E076D4D00B2C396 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				28D3FECE2E076D4D00B2C396 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				28D3FECF2E076D4D00B2C396 /* LlamaProctorTests */,
+			);
+			name = LlamaProctorTests;
+			packageProductDependencies = (
+			);
+			productName = LlamaProctorTests;
+			productReference = 28D3FECC2E076D4D00B2C396 /* LlamaProctorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		28D3FED52E076D4D00B2C396 /* LlamaProctorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28D3FEE62E076D4D00B2C396 /* Build configuration list for PBXNativeTarget "LlamaProctorUITests" */;
+			buildPhases = (
+				28D3FED22E076D4D00B2C396 /* Sources */,
+				28D3FED32E076D4D00B2C396 /* Frameworks */,
+				28D3FED42E076D4D00B2C396 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				28D3FED82E076D4D00B2C396 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				28D3FED92E076D4D00B2C396 /* LlamaProctorUITests */,
+			);
+			name = LlamaProctorUITests;
+			packageProductDependencies = (
+			);
+			productName = LlamaProctorUITests;
+			productReference = 28D3FED62E076D4D00B2C396 /* LlamaProctorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		28D3FEB32E076D4C00B2C396 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					28D3FEBA2E076D4C00B2C396 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					28D3FECB2E076D4D00B2C396 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 28D3FEBA2E076D4C00B2C396;
+					};
+					28D3FED52E076D4D00B2C396 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 28D3FEBA2E076D4C00B2C396;
+					};
+				};
+			};
+			buildConfigurationList = 28D3FEB62E076D4C00B2C396 /* Build configuration list for PBXProject "LlamaProctor" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 28D3FEB22E076D4C00B2C396;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				28D3FEF12E07BD5C00B2C396 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 28D3FEBC2E076D4C00B2C396 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				28D3FEBA2E076D4C00B2C396 /* LlamaProctor */,
+				28D3FECB2E076D4D00B2C396 /* LlamaProctorTests */,
+				28D3FED52E076D4D00B2C396 /* LlamaProctorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		28D3FEB92E076D4C00B2C396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28D3FECA2E076D4D00B2C396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28D3FED42E076D4D00B2C396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		28D3FEB72E076D4C00B2C396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28D3FEC82E076D4D00B2C396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28D3FED22E076D4D00B2C396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		28D3FECE2E076D4D00B2C396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28D3FEBA2E076D4C00B2C396 /* LlamaProctor */;
+			targetProxy = 28D3FECD2E076D4D00B2C396 /* PBXContainerItemProxy */;
+		};
+		28D3FED82E076D4D00B2C396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28D3FEBA2E076D4C00B2C396 /* LlamaProctor */;
+			targetProxy = 28D3FED72E076D4D00B2C396 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		28D3FEDE2E076D4D00B2C396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		28D3FEDF2E076D4D00B2C396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		28D3FEE12E076D4D00B2C396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LlamaProctor/LlamaProctor.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LlamaProctor/Preview Content\"";
+				DEVELOPMENT_TEAM = 76J3RYBPZN;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LlamaProctor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		28D3FEE22E076D4D00B2C396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LlamaProctor/LlamaProctor.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LlamaProctor/Preview Content\"";
+				DEVELOPMENT_TEAM = 76J3RYBPZN;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LlamaProctor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		28D3FEE42E076D4D00B2C396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 76J3RYBPZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LlamaProctorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LlamaProctor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LlamaProctor";
+			};
+			name = Debug;
+		};
+		28D3FEE52E076D4D00B2C396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 76J3RYBPZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LlamaProctorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LlamaProctor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LlamaProctor";
+			};
+			name = Release;
+		};
+		28D3FEE72E076D4D00B2C396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 76J3RYBPZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LlamaProctorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = LlamaProctor;
+			};
+			name = Debug;
+		};
+		28D3FEE82E076D4D00B2C396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 76J3RYBPZN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LlamaProctorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = LlamaProctor;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		28D3FEB62E076D4C00B2C396 /* Build configuration list for PBXProject "LlamaProctor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28D3FEDE2E076D4D00B2C396 /* Debug */,
+				28D3FEDF2E076D4D00B2C396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28D3FEE02E076D4D00B2C396 /* Build configuration list for PBXNativeTarget "LlamaProctor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28D3FEE12E076D4D00B2C396 /* Debug */,
+				28D3FEE22E076D4D00B2C396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28D3FEE32E076D4D00B2C396 /* Build configuration list for PBXNativeTarget "LlamaProctorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28D3FEE42E076D4D00B2C396 /* Debug */,
+				28D3FEE52E076D4D00B2C396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28D3FEE62E076D4D00B2C396 /* Build configuration list for PBXNativeTarget "LlamaProctorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28D3FEE72E076D4D00B2C396 /* Debug */,
+				28D3FEE82E076D4D00B2C396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		28D3FEF12E07BD5C00B2C396 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mongodb/mongo-swift-driver";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		28D3FEF22E07BD5C00B2C396 /* MongoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 28D3FEF12E07BD5C00B2C396 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */;
+			productName = MongoSwift;
+		};
+		28D3FEF42E07BD5C00B2C396 /* MongoSwiftSync */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 28D3FEF12E07BD5C00B2C396 /* XCRemoteSwiftPackageReference "mongo-swift-driver" */;
+			productName = MongoSwiftSync;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 28D3FEB32E076D4C00B2C396 /* Project object */;
+}
