@@ -384,7 +384,7 @@ struct ContentView: View {
         // Make the API call
         var request = URLRequest(url: URL(string: "https://api.llama.com/v1/chat/completions")!)
         request.httpMethod = "POST"
-        request.setValue("Bearer LLM|4223328317906442|61bxxIJdYOjFW-jmlw5ea70FkBY", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Config.llamaAPIKey)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type");
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
