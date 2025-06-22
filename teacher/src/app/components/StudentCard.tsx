@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Student, StudentStatus } from '../types';
+import { getScreenshotSrc } from '../utils/image';
 
 interface StudentCardProps {
   student: Student;
@@ -24,7 +25,7 @@ export default function StudentCard({ student, onClick }: StudentCardProps) {
     >
       <div className="relative">
         <img
-          src={student.screenshot}
+          src={getScreenshotSrc(student.screenshot)}
           alt={`${student.name}'s screen`}
           className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -45,4 +46,4 @@ export default function StudentCard({ student, onClick }: StudentCardProps) {
       <div className={`h-1 w-full ${styles.bg}`}></div>
     </div>
   );
-} 
+}

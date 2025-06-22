@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "geist": "^1.4.2",
+    "mongoclient": "^1.0.3",
+    "mongodb": "^6.17.0",
     "react-icons": "^5.5.0"
   }
 }

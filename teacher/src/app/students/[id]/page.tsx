@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { Student } from '../../types';
 import Link from 'next/link';
 import StudentChat from '../../components/StudentChat';
+import { getScreenshotSrc } from '../../utils/image';
 
 const StudentDetailSkeleton = () => (
   <div className="container mx-auto px-6 py-8 animate-pulse">
@@ -118,7 +119,7 @@ export default function StudentDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2 space-y-8">
             <div className="simple-card overflow-hidden">
-              <img src={student.screenshot} alt={`Screenshot of ${student.name}'s screen`} className="w-full object-cover" />
+              <img src={getScreenshotSrc(student.screenshot)} alt={`Screenshot of ${student.name}'s screen`} className="w-full object-cover" />
               <div className="p-6">
                 <h2 className="text-3xl font-bold font-formal mb-1">{student.name}</h2>
                 <p className={`font-semibold mb-4 ${getStatusColor(student.status)}`}>
@@ -178,4 +179,4 @@ export default function StudentDetailPage() {
       </main>
     </div>
   );
-} 
+}

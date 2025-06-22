@@ -10,10 +10,11 @@ function mapFocusScoreToStatus(score: number): StudentStatus {
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const studentId = context.params.id;
+    const params = await context.params;
+    const studentId = params.id;
 
     if (!studentId) {
       return NextResponse.json({ error: 'studentId is required' }, { status: 400 });
@@ -46,4 +47,4 @@ export async function GET(
     console.error(e);
     return NextResponse.json({ error: 'Unable to fetch student' }, { status: 500 });
   }
-} 
+}

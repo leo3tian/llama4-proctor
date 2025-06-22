@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { Student, StudentStatus } from '../types';
-import { FiMessageSquare, FiAlertTriangle, FiX, FiUserX, FiExternalLink } from 'react-icons/fi';
+import { FiUserX, FiExternalLink } from 'react-icons/fi';
 import Link from 'next/link';
+import { getScreenshotSrc } from '../utils/image';
 
 interface StudentModalProps {
   student: Student | null;
@@ -97,7 +98,7 @@ export default function StudentModal({
           {/* Image Container */}
           <div className="bg-background relative">
             <img
-              src={student.screenshot}
+              src={getScreenshotSrc(student.screenshot)}
               alt={`${student.name}'s screen`}
               className="w-full h-auto max-h-96 object-contain"
             />
@@ -174,4 +175,4 @@ export default function StudentModal({
       </div>
     </div>
   );
-} 
+}

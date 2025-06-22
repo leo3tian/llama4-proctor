@@ -52,8 +52,8 @@ The application includes a mock student database with 6 sample students:
    ```
 
 2. **Run Development Server**:
-   ```bash
-   npm run dev
+```bash
+npm run dev
    ```
 
 3. **Open Browser**:
