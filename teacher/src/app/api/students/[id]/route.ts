@@ -3,8 +3,8 @@ import clientPromise from '../../../../lib/mongodb';
 import { Student, StudentStatus } from '../../../../app/types';
 
 function mapFocusScoreToStatus(score: number): StudentStatus {
-  if (score > 7) return 'ON_TASK';
-  if (score > 4) return 'MAYBE_OFF_TASK';
+  if (score > 3) return 'ON_TASK';
+  if (score > 1) return 'MAYBE_OFF_TASK';
   return 'NEEDS_HELP';
 }
 

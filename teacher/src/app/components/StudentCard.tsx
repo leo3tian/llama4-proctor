@@ -10,9 +10,9 @@ interface StudentCardProps {
 }
 
 const statusStyles: Record<StudentStatus, { bg: string; text: string; label: string }> = {
-  ON_TASK: { bg: 'bg-accent-green', text: 'text-white', label: 'ON TASK' },
-  MAYBE_OFF_TASK: { bg: 'bg-accent-orange', text: 'text-white', label: 'MAYBE OFF-TASK' },
-  NEEDS_HELP: { bg: 'bg-accent-red', text: 'text-white', label: 'NEEDS HELP' },
+  ON_TASK: { bg: 'bg-accent-green', text: 'text-white', label: 'On Task' },
+  MAYBE_OFF_TASK: { bg: 'bg-accent-orange', text: 'text-white', label: 'Sussi' },
+  NEEDS_HELP: { bg: 'bg-accent-red', text: 'text-white', label: 'Needs Help' },
 };
 
 export default function StudentCard({ student, onClick }: StudentCardProps) {

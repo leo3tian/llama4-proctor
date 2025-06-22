@@ -31,20 +31,20 @@ export default function ClassInfoPanel({ currentInstruction, onSetInstruction }:
   };
 
   return (
-    <div className="simple-card p-6 w-full mb-8">
+    <div className="bg-accent-blue rounded-lg shadow-md p-6 w-full mb-8">
       <div className="flex justify-between items-start">
         <div>
-          <h2 className="text-sm text-text-secondary uppercase tracking-wider">Class</h2>
-          <p className="text-3xl font-formal font-bold text-text-primary">AP US History</p>
+          <h2 className="text-sm text-white/70 uppercase tracking-wider">Class</h2>
+          <p className="text-3xl font-formal font-bold text-white">AP US History</p>
         </div>
         <div className="text-right">
-          <h2 className="text-sm text-text-secondary uppercase tracking-wider">Current Activity</h2>
-          <p className="text-3xl font-formal font-bold text-accent-blue">{currentInstruction}</p>
+          <h2 className="text-sm text-white/70 uppercase tracking-wider">Current Activity</h2>
+          <p className="text-3xl font-formal font-bold text-white">{currentInstruction}</p>
         </div>
       </div>
-      <div className="mt-6 border-t border-border pt-4">
+      <div className="mt-6 border-t border-white/20 pt-4">
         <form onSubmit={handleSubmit} className="flex items-center gap-4">
-          <label htmlFor="instruction-input" className="text-text-secondary font-medium whitespace-nowrap">
+          <label htmlFor="instruction-input" className="text-white/90 font-medium whitespace-nowrap">
             Update Activity:
           </label>
           <input
@@ -53,14 +53,14 @@ export default function ClassInfoPanel({ currentInstruction, onSetInstruction }:
             value={instruction}
             onChange={(e) => setInstruction(e.target.value)}
             placeholder="What are we working on now?"
-            className="w-full px-4 py-2 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition-all"
+            className="w-full px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg placeholder-white/50 focus:ring-2 focus:ring-white focus:border-white transition-all"
             disabled={isLoading}
           />
-          <button type="submit" className="btn-primary" disabled={isLoading}>
+          <button type="submit" className="bg-white text-accent-blue font-bold py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50" disabled={isLoading}>
             {isLoading ? 'Updating...' : 'Update'}
           </button>
         </form>
-        {error && <p className="text-sm text-accent-red mt-2 pl-36">{error}</p>}
+        {error && <p className="text-sm text-white bg-red-500/50 rounded-md px-2 py-1 mt-2 ml-36">{error}</p>}
       </div>
     </div>
   );

@@ -1,59 +1,59 @@
 import { NextResponse } from 'next/server';
-import { Student, MessageSender } from '@/app/types';
-import clientPromise from '../../../lib/mongodb';
+import { Student } from '@/app/types';
 import { sendMessage } from '../../../lib/messageHelper';
 
 export async function POST(request: Request) {
   try {
-    const { messages, student } = (await request.json()) as { messages: any[], student: Student };
+    const { messages, students, currentInstruction } = (await request.json()) as { messages: any[], students: Student[], currentInstruction: string };
 
-    if (!messages || !student) {
-      return NextResponse.json({ error: 'Messages and student data are required' }, { status: 400 });
+    if (!messages || !students) {
+      return NextResponse.json({ error: 'Messages and students data are required' }, { status: 400 });
     }
+    
+    const studentNameIdMap = students.reduce((acc, s) => {
+      acc[s.name] = s.id;
+      return acc;
+    }, {} as Record<string, string>);
 
     const tools = [
       {
         type: "function",
         function: {
-          name: "sendMessage",
-          description: "Sends a helpful message to the student. This message will be recorded in the system.",
+          name: "sendMessageToStudent",
+          description: "Sends a helpful message to a specific student. This message will be recorded in the system.",
           parameters: {
             type: "object",
             properties: {
+              studentName: {
+                type: "string",
+                description: "The full name of the student to send the message to.",
+                enum: Object.keys(studentNameIdMap),
+              },
               text: {
                 type: "string",
                 description: "The content of the message to send to the student.",
               },
             },
-            required: ["text"],
+            required: ["studentName", "text"],
           },
         },
       },
-      {
-        type: "function",
-        function: {
-          name: "getHistory",
-          description: "Retrieves the activity history for the current student.",
-          parameters: {
-            type: "object",
-            properties: {},
-            required: []
-          }
-        }
-      }
     ];
+    
+    // Sanitize and format student data for the context
+    const studentContext = students.map(s => {
+      const historySummary = s.history && s.history.length > 0
+        ? `\\n    Activity History: [${s.history.slice(0, 5).map(h => `"${h}"`).join(', ')}${s.history.length > 5 ? ', ...' : ''}]`
+        : '';
+      return `- ${s.name}: Status is ${s.status}, Focus Score is ${s.focusScore || 'N/A'}. Current activity: ${s.currentActivity}${historySummary}`;
+    }).join('\\n');
 
-    const systemContent = `You are a helpful assistant for a teacher. You are discussing a student named ${student.name}.
-Here is the student's current data:
-- Status: ${student.status}
-- Focus Score: ${student.focusScore}
-- Current Activity: ${student.currentActivity}
-- Detailed Description: ${student.description}
-- Active: ${student.active}
+    const systemContent = `You are a helpful assistant for a teacher monitoring their classroom. Speak in natural languages and only call tools if specifically asked to.
+The current assignment for the class is: "${currentInstruction}".
+Here is a summary of all the students in the class:
+${studentContext}
 
-Keep your responses concise and helpful for a teacher monitoring their classroom. 
-Do not call a tool unless they specifically ask you to do that action.
-You have the ability to send messages to the student, as well as read through their history.`;
+Answer the teacher's questions based on this data. You can send messages to students if needed.`;
 
     const llamaMessages = [
       {
@@ -92,25 +92,18 @@ You have the ability to send messages to the student, as well as read through th
 
       let toolResultContent = "";
 
-      if (functionName === 'sendMessage') {
-        try {
-          await sendMessage(student.id, "1", functionArgs.text, 'SUSSI_AI');
-          toolResultContent = `Successfully sent message: "${functionArgs.text}"`;
-        } catch (e) {
-          console.error('Failed to execute sendMessage tool:', e);
-          toolResultContent = "Failed to send the message due to an internal error.";
-        }
-      } else if (functionName === 'getHistory') {
-        try {
-          if (student && Array.isArray(student.history)) {
-            toolResultContent = JSON.stringify(student.history);
-          } else {
-            toolResultContent = 'No history found for this student.';
+      if (functionName === 'sendMessageToStudent') {
+        const studentId = studentNameIdMap[functionArgs.studentName];
+        if (studentId) {
+          try {
+            await sendMessage(studentId, "1", functionArgs.text, 'SUSSI_AI');
+            toolResultContent = `Successfully sent message to ${functionArgs.studentName}.`;
+          } catch (e) {
+            console.error('Failed to execute sendMessage tool:', e);
+            toolResultContent = `Failed to send message to ${functionArgs.studentName} due to an internal error.`;
           }
-          functionArgs.text = `Read ${(student.history || []).length} history entries`
-        } catch (e) {
-          console.error('Failed to execute getHistory tool:', e);
-          toolResultContent = "Failed to retrieve student history due to an internal error.";
+        } else {
+          toolResultContent = `Could not send message: Student "${functionArgs.studentName}" not found.`;
         }
       }
 
@@ -161,6 +154,6 @@ You have the ability to send messages to the student, as well as read through th
 
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: 'Unable to process chat' }, { status: 500 });
+    return NextResponse.json({ error: 'Unable to process classroom chat' }, { status: 500 });
   }
-}
+} 

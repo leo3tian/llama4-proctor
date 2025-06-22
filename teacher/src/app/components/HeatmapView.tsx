@@ -27,19 +27,14 @@ export default function HeatmapView({ students, onStudentClick }: HeatmapViewPro
   return (
     <div>
       <div className="grid grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
-        {Array.from({ length: 30 }, (_, i) => {
-          const student = students.find(s => s.id === `stu${String(i + 1).padStart(3, '0')}`);
-          const isActive = !!student;
-          
+        {students.map((student, i) => {
           return (
             <div
-              key={i}
-              onClick={() => student && onStudentClick?.(student)}
-              className={`aspect-square rounded-lg border flex items-center justify-center text-xs font-semibold transition-all duration-200 ${
-                isActive ? statusStyles[student.status] : 'bg-gray-100 border-gray-200 text-text-muted'
-              }`}
+              key={student.id}
+              onClick={() => onStudentClick?.(student)}
+              className={`aspect-square rounded-lg border flex items-center justify-center text-xs font-semibold transition-all duration-200 ${statusStyles[student.status]}`}
             >
-              {isActive ? student?.name.split(' ')[0] : 'Empty'}
+              {student.name.split(' ')[0]}
             </div>
           );
         })}
@@ -56,10 +51,6 @@ export default function HeatmapView({ students, onStudentClick }: HeatmapViewPro
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-red-100 border-2 border-red-300 rounded"></div>
           <span>Needs Help</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gray-100 border-2 border-gray-200 rounded"></div>
-          <span>Empty Seat</span>
         </div>
       </div>
     </div>

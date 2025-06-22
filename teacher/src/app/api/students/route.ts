@@ -3,8 +3,8 @@ import clientPromise from '../../../lib/mongodb';
 import { Student, StudentStatus } from '../../../app/types';
 
 function mapFocusScoreToStatus(score: number): StudentStatus {
-  if (score > 7) return 'ON_TASK';
-  if (score > 4) return 'MAYBE_OFF_TASK';
+  if (score > 4) return 'ON_TASK';
+  if (score > 3) return 'MAYBE_OFF_TASK';
   return 'NEEDS_HELP';
 }
 
@@ -21,7 +21,6 @@ export async function GET(request: Request) {
     const db = client.db('LlamaProctorDB');
     
     const studentsFromDb = await db.collection('students').find({ classroom: classroomId, active: true }).toArray();
-    console.log(studentsFromDb);
     const students: Student[] = studentsFromDb.map((dbStudent: any) => ({
       id: dbStudent.id,
       name: dbStudent.name || `Student ${dbStudent.id}`,

@@ -8,23 +8,31 @@ import AddStudentPanel from './components/AddStudentPanel';
 import StudentGrid from './components/StudentGrid';
 import HeatmapView from './components/HeatmapView';
 import FlagSummaryPanel from './components/FlagSummaryPanel';
-import ViewToggle from './components/ViewToggle';
 import Toast from './components/Toast';
 import StudentModal from './components/StudentModal';
 import StudentFilter from './components/StudentFilter';
-import { Student, ViewMode, StudentStatus } from './types';
+import { Student, StudentStatus } from './types';
 import { updateStudentActivity } from './mockData';
 import { getStudents } from './services/api';
+import ClassroomChat from './components/ClassroomChat';
+import MainViewToggle, { MainView } from './components/MainViewToggle';
+
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center h-64">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent-blue"></div>
+  </div>
+);
 
 export default function Dashboard() {
   const [students, setStudents] = React.useState<Student[]>([]);
   const [currentInstruction, setCurrentInstruction] = React.useState('Watch YouTube video about Greek history');
-  const [viewMode, setViewMode] = React.useState<ViewMode>('grid');
   const [toast, setToast] = React.useState<{ message: string; type: 'error' | 'success' } | null>(null);
   const [selectedStudent, setSelectedStudent] = React.useState<Student | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [lastUpdated, setLastUpdated] = React.useState<Date | null>(null);
   const [filterStatus, setFilterStatus] = React.useState<StudentStatus | 'ALL'>('ALL');
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [mainView, setMainView] = React.useState<MainView>('activity');
 
   const refreshData = React.useCallback(async () => {
     try {
@@ -44,7 +52,13 @@ export default function Dashboard() {
   }, []);
 
   React.useEffect(() => {
-    refreshData();
+    const initialLoad = async () => {
+      await refreshData();
+      setIsLoading(false);
+    };
+
+    initialLoad();
+
     const interval = setInterval(refreshData, 10000);
     return () => clearInterval(interval);
   }, [refreshData]);
@@ -66,10 +80,6 @@ export default function Dashboard() {
   const handleSetInstruction = (instruction: string) => {
     setCurrentInstruction(instruction);
     setToast({ message: 'Activity updated successfully', type: 'success' });
-  };
-
-  const handleViewChange = (view: ViewMode) => {
-    setViewMode(view);
   };
 
   const handleStudentClick = (student: Student) => {
@@ -130,7 +140,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background text-text-primary">
       {/* Header */}
-      <header className="border-b border-border bg-surface sticky top-0 z-10">
+      <header className="border-b border-border bg-background sticky top-0 z-10">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -162,10 +172,6 @@ export default function Dashboard() {
               onAddStudent={handleAddStudent}
               onError={handleError}
             />
-            <ViewToggle 
-              currentView={viewMode}
-              onViewChange={handleViewChange}
-            />
             <FlagSummaryPanel 
               students={students}
               currentInstruction={currentInstruction}
@@ -174,54 +180,67 @@ export default function Dashboard() {
 
           {/* Main Content Area */}
           <div className="lg:col-span-3">
-            <div className="simple-card p-6">
-              <div className="flex justify-between items-center mb-6">
-                <div>
-                  <h2 className="text-2xl font-formal font-bold text-text-primary">
-                    {viewMode === 'grid' ? 'Student Activity View' : 'Classroom Layout'}
-                  </h2>
-                  <span className="text-sm text-text-secondary">
-                    {students.length} students connected
-                  </span>
-                </div>
-                {students.length > 0 && (
-                  <div className="flex items-center gap-4">
-                    <div className="text-sm text-text-secondary text-right">
-                      Last updated: {lastUpdated ? lastUpdated.toLocaleTimeString() : 'N/A'}
-                    </div>
-                    <button
-                      onClick={handleReload}
-                      className="btn-secondary p-2 text-lg"
-                    >
-                      <TbReload size={20} />
-                    </button>
+            <div className="mb-6">
+              <MainViewToggle currentView={mainView} onViewChange={setMainView} />
+            </div>
+
+            {mainView === 'chat' ? (
+              <ClassroomChat currentInstruction={currentInstruction} />
+            ) : (
+              <div className="simple-card p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <h2 className="text-2xl font-formal font-bold text-text-primary">
+                      {mainView === 'activity' ? 'Student Grid' : 'Classroom Layout'}
+                    </h2>
+                    <span className="text-sm text-text-secondary">
+                      {students.length} students connected
+                    </span>
                   </div>
+                  {students.length > 0 && (
+                    <div className="flex items-center gap-4">
+                      <div className="text-sm text-text-secondary text-right">
+                        Last updated: {lastUpdated ? lastUpdated.toLocaleTimeString() : 'N/A'}
+                      </div>
+                      <button
+                        onClick={handleReload}
+                        className="btn-secondary p-2 text-lg"
+                      >
+                        <TbReload size={20} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                {isLoading ? (
+                  <LoadingSpinner />
+                ) : (
+                  <>
+                    {mainView === 'activity' && (
+                      <StudentFilter 
+                        currentFilter={filterStatus}
+                        onFilterChange={setFilterStatus}
+                        counts={statusCounts}
+                      />
+                    )}
+                    {mainView === 'activity' ? (
+                      <StudentGrid 
+                        students={filteredStudents} 
+                        onStudentClick={handleStudentClick}
+                      />
+                    ) : (
+                      <HeatmapView 
+                        students={students} 
+                        onStudentClick={handleStudentClick}
+                      />
+                    )}
+                  </>
                 )}
               </div>
-              
-              {students.length > 0 && viewMode === 'grid' && (
-                <StudentFilter 
-                  currentFilter={filterStatus}
-                  onFilterChange={setFilterStatus}
-                  counts={statusCounts}
-                />
-              )}
-
-              {viewMode === 'grid' ? (
-                <StudentGrid 
-                  students={filteredStudents} 
-                  onStudentClick={handleStudentClick}
-                />
-              ) : (
-                <HeatmapView 
-                  students={students} 
-                  onStudentClick={handleStudentClick}
-                />
-              )}
-            </div>
+            )}
           </div>
         </div>
-          </div>
+      </div>
 
       {/* Student Modal */}
       <StudentModal
