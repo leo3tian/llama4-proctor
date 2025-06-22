@@ -1,10 +1,10 @@
-# LlamaProctor - AI-Powered Classroom Monitoring System
+# Sussi - AI-Powered Classroom Monitoring System
 
 A comprehensive classroom monitoring solution that uses AI to analyze student screen activity in real-time. The system consists of a macOS student client app and a web-based teacher dashboard, connected through MongoDB for seamless data synchronization.
 
 ## 🎯 Overview
 
-LlamaProctor combines real-time screen capture, AI analysis, and intuitive teacher tools to create a modern classroom monitoring experience. Teachers can set assignments, monitor student progress, and receive intelligent insights about student engagement and focus levels.
+Sussi combines real-time screen capture, AI analysis, and intuitive teacher tools to create a modern classroom monitoring experience. Teachers can set assignments, monitor student progress, and receive intelligent insights about student engagement and focus levels.
 
 ## 🏗️ System Architecture
 
@@ -89,12 +89,12 @@ LlamaProctor combines real-time screen capture, AI analysis, and intuitive teach
 1. **Configure MongoDB connection:**
    ```bash
    cd LlamaStudentClient
-   cp Config.template.swift LlamaProctor/Config.swift
+   cp Config.template.swift LlamaStudentClient/Config.swift
    # Edit Config.swift with your MongoDB connection string
    ```
 
 2. **Build and run:**
-   - Open `LlamaProctor.xcodeproj` in Xcode
+   - Open `LlamaStudentClient.xcodeproj` in Xcode
    - Build and run the project (⌘+R)
    - Grant screen recording permissions when prompted
 
