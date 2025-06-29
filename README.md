@@ -1,5 +1,7 @@
 # Sussi - AI-Powered Classroom Monitoring System
 
+Meta Llama 4 Hackathon 1st Place Winning Project - https://x.com/MetaforDevs/status/1937233386453762423
+
 A comprehensive classroom monitoring solution that uses AI to analyze student screen activity in real-time. The system consists of a macOS student client app and a web-based teacher dashboard, connected through MongoDB for seamless data synchronization.
 
 ## 🎯 Overview
